@@ -1,0 +1,9 @@
+main {
+    background-color: lightslategray;
+    height: 100%;
+    min-height:3400px;
+    display: flex;
+    flex-direction: column;
+    font-family: Arial;
+    color: black;
+}
