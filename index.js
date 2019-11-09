@@ -25,6 +25,7 @@ const {
     getClientId,
     getGraduateId,
     getClient,
+    editClient,
     getGraduate
 
 } = require("./db");
@@ -291,6 +292,37 @@ app.get("/api/getClient", (req, res) => {
         });	        
 });
 
+app.post("/editclient", (req, res) => {
+    const id = req.session.userId;
+    console.log("editclient", req.body);
+    var bio = req.body.bio;
+    editClient(id, first, last, company, department, email)
+        .then(() => {
+            res.json({
+                bio: bio
+            });
+        })
+        .catch(err => {
+            console.log(err);
+            res.sendStatus(500);
+        });
+});
+
+
+app.get("/api/getGraduate", (req, res) => {
+    const id = req.session.userId;
+    console.log("id in /getGraduate req", id );
+    getGraduate(id)
+    
+        .then(result => {
+            res.json(result.rows[0]);
+            console.log(result.rows[0]);
+        })
+        .catch(err => {
+            console.log(err);
+            res.sendStatus(500);
+        });	        
+});
 
 app.get('*', function(req, res) {
     if (!req.session.userId){

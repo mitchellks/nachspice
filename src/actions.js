@@ -4,10 +4,10 @@ export async function receiveGraduate() {
     console.log("reducer mounted");
 
     const { data } = await axios.get("/api/getGraduate");
-    console.log("data in reducer",data);
+    console.log("data for graduate in actions",data);
     return {
         type: 'RECEIVE_GRADUATE',
-        users: data
+        graduate: data
     };
    
 }
@@ -24,17 +24,31 @@ export async function receiveClient() {
    
 }
 
-export async function receiveUsers() {
-    console.log("reducer mounted");
+// export async function editClient() {
+//     console.log("reducer mounted");
 
-    const { data } = await axios.get("/api/getClient");
-    console.log("receive users data in reducer",data);
-    return {
-        type: 'RECEIVE_USERS',
-        users: data
-    };
+//     const { data } = await axios.post("/api/editClient");
+//     console.log(" edit client data in reducer",data);
+//     return {
+//         type: 'EDIT_CLIENT',
+//         client: data
+//     };
    
-}
+// }
+
+
+
+// export async function receiveUsers() {
+//     console.log("reducer mounted");
+
+//     const { data } = await axios.get("/api/getClient");
+//     console.log("receive users data in reducer",data);
+//     return {
+//         type: 'RECEIVE_USERS',
+//         users: data
+//     };
+   
+// }
 
 // export async function chatMessages(msgs) {
 //     console.log("chatMessages in action.js", msgs);

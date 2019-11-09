@@ -82,7 +82,7 @@ module.exports.getClient = id => {
 module.exports.getGraduate = id => {
     return db.query(
         `SELECT *
-        FROM client
+        FROM graduate
         WHERE id = $1`,
         [id]
     );

@@ -1,15 +1,26 @@
 
 export default function Reducer(state = {}, action) {
+   
     if (action.type == "RECEIVE_GRADUATE") {
-        console.log("actions", action);
+        console.log(" receive graduate in reducer", action);
         state = {
             ...state,
-            users: action.users
+            graduate: action.graduate
 
         
         };
     }
     if (action.type == "RECEIVE_CLIENT") {
+        console.log("receive client in actions", action);
+        state = {
+            ...state,
+            client: action.client
+
+        
+        };
+    }
+
+    if (action.type == "EDIT_CLIENT") {
         console.log("actions", action);
         state = {
             ...state,
@@ -19,15 +30,15 @@ export default function Reducer(state = {}, action) {
         };
     }
 
-    if (action.type == "RECEIVE_USERS") {
-        console.log("actions", action);
-        state = {
-            ...state,
-            users: action.users
+    // if (action.type == "RECEIVE_USERS") {
+    //     console.log("actions", action);
+    //     state = {
+    //         ...state,
+    //         users: action.users
 
         
-        };
-    }
+    //     };
+    // }
 
     // if (action.type == "RECEIVE_MESSAGES") {
     //     console.log("REDUCER RECEIVE MESSAGES", action);

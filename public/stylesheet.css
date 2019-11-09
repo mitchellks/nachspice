@@ -8,6 +8,20 @@ main {
     color: black;
 }
 
+.header {
+    display: inline-flex;
+    justify-content: space-between;
+    height: 200px;
+}
+
+.headerlogo {
+    display: inline-flex;
+    position: absolute;
+    /* left: 50%; */
+    font-size: 150px;
+    font-family: Arial;
+}
+
 .landing {
     /* background-image: url("https://www.sunshineseeker.com/wp-content/uploads/2019/02/First-Time-Guide-Delhi-Spice-Market.jpg"); */
     object-fit: cover;
@@ -55,3 +69,29 @@ main {
         display: flex;
     }
 }
+
+.graduatepage {
+    color: blue;
+    font-size: 120px;
+}
+
+.graduatedesc {
+    display: flex;
+    flex-direction: column;
+    .first {
+        display: flex;
+        color: yellow;
+    }
+    .last {
+        display: flex;
+        color: green;
+    }
+    .cohort {
+        display: flex;
+        color:blue;
+    }
+    .email {
+        display: flex;
+    }
+}
+

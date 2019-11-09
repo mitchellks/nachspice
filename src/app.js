@@ -8,7 +8,10 @@ import { Link } from 'react-router-dom';
 // import { Browser };
 import { BrowserRouter, Route } from "react-router-dom";
 import Client from "./client";
-// import Graduate from "./graduate";
+import Header from "./header";
+
+// import {ClientEdit} from "./clientedit";
+import Graduate from "./graduate";
 
 
 export class App extends React.Component {
@@ -39,8 +42,8 @@ export class App extends React.Component {
                     <div>
 
                 
-                        {/* <Header 
-                            imageurl = {this.state.imageurl}/> */}
+                        <Header 
+                            />
                         
                    
                         <Route exact path="/" render={
@@ -56,6 +59,18 @@ export class App extends React.Component {
                                 // <div> TEST </div> }
                                 (
                                 <Client 
+                                key={props.match.url}
+                                    match={props.match}
+                                    history={props.history}/>
+                            )}
+                            
+                        />
+
+                        <Route path ="/graduate"
+                            render = {props => 
+                                // <div> TEST </div> }
+                                (
+                                <Graduate 
                                 key={props.match.url}
                                     match={props.match}
                                     history={props.history}/>

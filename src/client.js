@@ -27,8 +27,6 @@ export default function Client() {
         return null;
     }
 
-    const handleClick = (id) => {console.log("handleclick", id)};
-
 
     return (
 
@@ -40,7 +38,18 @@ export default function Client() {
                         <div className="email" >email: {client.email} </div>
                         </div>
                     </div>
+        
+        <div>
+Edit
+
         </div>
+        
+        
+        
+        </div>
+
+
+
     );
 }
 
