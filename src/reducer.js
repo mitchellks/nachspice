@@ -13,6 +13,16 @@ export default function Reducer(state = {}, action) {
         console.log("actions", action);
         state = {
             ...state,
+            client: action.client
+
+        
+        };
+    }
+
+    if (action.type == "RECEIVE_USERS") {
+        console.log("actions", action);
+        state = {
+            ...state,
             users: action.users
 
         

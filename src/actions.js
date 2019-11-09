@@ -16,9 +16,21 @@ export async function receiveClient() {
     console.log("reducer mounted");
 
     const { data } = await axios.get("/api/getClient");
-    console.log("data in reducer",data);
+    console.log(" receive client data in reducer",data);
     return {
         type: 'RECEIVE_CLIENT',
+        client: data
+    };
+   
+}
+
+export async function receiveUsers() {
+    console.log("reducer mounted");
+
+    const { data } = await axios.get("/api/getClient");
+    console.log("receive users data in reducer",data);
+    return {
+        type: 'RECEIVE_USERS',
         users: data
     };
    

@@ -7,3 +7,51 @@ main {
     font-family: Arial;
     color: black;
 }
+
+.landing {
+    /* background-image: url("https://www.sunshineseeker.com/wp-content/uploads/2019/02/First-Time-Guide-Delhi-Spice-Market.jpg"); */
+    object-fit: cover;
+    min-width:3200px;
+    min-height:1200px;
+}
+
+.welcometext {
+    color: white;
+    font-size: 100px;
+    top: 50%;
+    position: relative;
+    text-align: center;
+}
+
+.welcome {
+    position: relative;
+}
+
+.create-account {
+    display: flex;
+    flex-direction: column;
+    max-width: 400px;
+}
+
+
+.clientpage {
+    color: red;
+    font-size: 120px;
+}
+
+.clientdesc {
+    display: flex;
+    flex-direction: column;
+    .first {
+        display: flex;
+    }
+    .last {
+        display: flex;
+    }
+    .company {
+        display: flex;
+    }
+    .email {
+        display: flex;
+    }
+}

@@ -1,10 +1,8 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import Welcome from "./welcome";
-// import Home from "./home";
 import {App} from "./app";
-// import { init }  from "./socket";
-// import * as io from "socket.io-client";
+
 
 //REDUX INSTALLATION BOILERPLATE
 import { createStore, applyMiddleware } from 'redux';
@@ -16,7 +14,6 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 
 const store = createStore(reducer, composeWithDevTools(applyMiddleware(reduxPromise)));
 
-//
 
 
 let elem;

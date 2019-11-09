@@ -25,3 +25,65 @@ module.exports.postClientRegistration = (first, last, company, email, password) 
         [first, last, company, email, password]
     );
 };
+
+
+
+
+
+
+module.exports.getPasswordGrad = email => {
+    return db.query(
+        `SELECT password
+        FROM graduate 
+        WHERE email = $1`,
+        [email]
+    );
+};
+
+module.exports.getPasswordClient = email => {
+    return db.query(
+        `SELECT password
+        FROM client 
+        WHERE email = $1`,
+        [email]
+    );
+};
+
+module.exports.getClientId = email => {
+    return db.query(
+        `SELECT *
+        FROM client
+        WHERE email = $1`,
+        [email]
+    );
+};
+
+module.exports.getGraduateId = email => {
+    return db.query(
+        `SELECT *
+        FROM graduate
+        WHERE email = $1`,
+        [email]
+    );
+};
+
+
+module.exports.getClient = id => {
+    return db.query(
+        `SELECT *
+        FROM client
+        WHERE id = $1`,
+        [id]
+    );
+};
+
+
+
+module.exports.getGraduate = id => {
+    return db.query(
+        `SELECT *
+        FROM client
+        WHERE id = $1`,
+        [id]
+    );
+};

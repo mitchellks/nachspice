@@ -19,7 +19,14 @@ const path = require("path");
 
 const {
     postClientRegistration,
-    postGraduateRegistration
+    postGraduateRegistration,
+    getPasswordGrad,
+    getPasswordClient,
+    getClientId,
+    getGraduateId,
+    getClient,
+    getGraduate
+
 } = require("./db");
 
 // const postMessage = require("./actions");
@@ -196,14 +203,49 @@ app.post("/gradregister", (req, res) => {
 });
 
 
-app.post("/login", (req, res) => {
-    let {
-        email,
-        password
-    } = req.body;
-    let hashedPass;
-    console.log("email:", email, password);
-    getPassword(email)
+// app.post("/login", (req, res) => {
+//     let {
+//         email,
+//         password
+//     } = req.body;
+//     let hashedPass;
+//     console.log("email:", email, password);
+
+//     getPasswordGrad(email)
+//         .then(({
+//             rows
+//         }) => {
+//             console.log(rows);
+//             hashedPass = rows[0].password;
+//             return hashedPass;
+//         })
+//         .then(hashedPass => {
+//             return compare(password, hashedPass);
+//         })
+//         .then(matches => {
+//             if (matches) {
+//                 getGraduateId(email).then(id => {
+//                     req.session.userId = id.rows[0].id;
+//                     res.json({
+//                         success: true
+//                     });
+//                 });
+                
+//             } else {
+//                 return res.sendStatus(500);
+//             }
+//         });
+//     });
+
+        app.post("/login", (req, res) => {
+            let {
+                email,
+                password
+            } = req.body;
+            let hashedPass;
+            console.log("email:", email, password);
+
+        getPasswordClient(email)
         .then(({
             rows
         }) => {
@@ -216,7 +258,7 @@ app.post("/login", (req, res) => {
         })
         .then(matches => {
             if (matches) {
-                getId(email).then(id => {
+                getClientId(email).then(id => {
                     req.session.userId = id.rows[0].id;
                     res.json({
                         success: true
@@ -234,7 +276,20 @@ app.post("/login", (req, res) => {
         });
 });
 
-
+app.get("/api/getClient", (req, res) => {
+    const id = req.session.userId;
+    console.log("id in /getClient req", id );
+    getClient(id)
+    
+        .then(result => {
+            res.json(result.rows[0]);
+            console.log(result.rows[0]);
+        })
+        .catch(err => {
+            console.log(err);
+            res.sendStatus(500);
+        });	        
+});
 
 
 app.get('*', function(req, res) {

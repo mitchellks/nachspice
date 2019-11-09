@@ -7,6 +7,8 @@ import Login from "./login";
 import { Link } from 'react-router-dom';
 // import { Browser };
 import { BrowserRouter, Route } from "react-router-dom";
+import Client from "./client";
+// import Graduate from "./graduate";
 
 
 export class App extends React.Component {
@@ -48,6 +50,30 @@ export class App extends React.Component {
                                     
                                 </div>     
                         } />
+
+                        <Route path ="/client"
+                            render = {props => 
+                                // <div> TEST </div> }
+                                (
+                                <Client 
+                                key={props.match.url}
+                                    match={props.match}
+                                    history={props.history}/>
+                            )}
+                            
+                        />
+
+                        {/* <Route path ="/chat"
+                            render = {props => (
+                                <Chat 
+                                key={props.match.url}
+                                    match={props.match}
+                                    history={props.history}/>
+                            )}
+                        /> */}
+
+
+
 
                     </div>
                 </BrowserRouter>

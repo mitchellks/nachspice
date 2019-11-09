@@ -62,7 +62,7 @@ export default class ClientRegister extends React.Component {
                 <input name="password" placeholder="password" type="password" onChange={e => this.handleChange(e)} />
                 <button onClick={() => this.submit()}>Join</button>
                 
-                <Link to="/login">Click here to Log in!</Link>
+                {/* <Link to="/login">Click here to Log in!</Link> */}
                 
             </div>
         );
