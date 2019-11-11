@@ -29,7 +29,9 @@ const {
     editClient,
     getGraduate,
     addGrad,
-    addClient
+    addClient,
+    addProject,
+    getProject
 
 } = require("./db");
 
@@ -379,12 +381,27 @@ app.get("/api/getGraduate", (req, res) => {
 
 app.post("/api/addproject", (req, res) => {
     const id = req.session.userId;
+let clientid = id;
+    let {  
+        projectname,
+            contact,
+            description,
+            email,
+            phone,
+            date } = req.body;
+    
     // console.log("bio", req.body);
     // var bio = req.body.bio;
-    addProject(id, bio)
-        .then(() => {
+    addProject(clientid, projectname,
+        contact,
+        description,
+        email,
+        phone,
+        date)
+        .then( result  => {
+            console.log ("result", result);
             res.json({
-                bio: bio
+                success: true
             });
         })
         .catch(err => {
@@ -394,8 +411,26 @@ app.post("/api/addproject", (req, res) => {
 });
 
 
+// app.get("/api/getProject", (req, res) => {
+//     const id = req.session.userId;
+//     let clientid = id;
+//     console.log("id in /getProject req", id );
+//     // console.log("id in /getProject req", id );
+//     getProject(clientid)
+    
+//         .then(result => {
+//             res.json(result.rows[0]);
+//             console.log(result.rows[0]);
+//         })
+//         .catch(err => {
+//             console.log(err);
+//             res.sendStatus(500);
+//         });	        
+// });
+
 app.get("/api/getProject", (req, res) => {
     const id = req.session.userId;
+   
     console.log("id in /getProject req", id );
     getProject(id)
     

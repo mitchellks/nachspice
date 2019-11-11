@@ -39,7 +39,7 @@ export default class ClientRegister extends React.Component {
                 console.log("client register submit data", data);
                 if (data.success) {  
                    
-                    location.replace("/");
+                    location.replace("/addclient");
                 } else {
                     this.setState({ 
                         error: true

@@ -17,9 +17,15 @@ main {
 .headerlogo {
     display: inline-flex;
     position: absolute;
-    /* left: 50%; */
+    left: 50%;
     font-size: 150px;
     font-family: Arial;
+}
+
+.headerlinks {
+    display: inline-flex;
+align-content: space-between;
+    
 }
 
 .landing {

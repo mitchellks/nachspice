@@ -91,21 +91,50 @@ module.exports.getGraduate = id => {
 };
 
 
-module.exports.getProject = id => {
+module.exports.getProject = clientid => {
     return db.query(
         `SELECT *
-        FROM project
-        WHERE id = $1`,
-        [id]
+        FROM projects
+        WHERE clientid = $1`,
+        [clientid]
     );
 };
 
-module.exports.postProject = (contact, description, company, email, password) => {
+
+module.exports.getProject = clientid => {
     return db.query(
-        `INSERT INTO client(first, last, company, email, password)
-        VALUES($1, $2, $3, $4 ,$5) RETURNING id;
+        `SELECT * 
+        FROM projects 
+        JOIN client
+        ON (projects.clientid = client.clientid) 
+        
+        
+        WHERE projects.clientid = $1`,
+        [clientid]
+    );
+};
+
+module.exports.addProject = (clientid, projectname,
+    contact,
+    description,
+    email,
+    phone,
+    date) => {
+    return db.query(
+        `INSERT INTO projects (clientid, projectname,
+            contact,
+            description,
+            email,
+            phone,
+            date)
+        VALUES($1, $2, $3, $4 ,$5, $6, $7) RETURNING id;
                 `,
-        [first, last, company, email, password]
+        [clientid, projectname,
+            contact,
+            description,
+            email,
+            phone,
+            date]
     );
 };
 

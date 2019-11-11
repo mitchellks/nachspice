@@ -36,17 +36,19 @@ export async function receiveProject() {
    
 }
 
-// export async function editClient() {
-//     console.log("reducer mounted");
+export async function addProject() {
+    console.log("reducer mounted");
 
-//     const { data } = await axios.post("/api/editClient");
-//     console.log(" edit client data in reducer",data);
-//     return {
-//         type: 'EDIT_CLIENT',
-//         client: data
-//     };
+    const { data } = await axios.post("/api/postProject");
+    console.log(" post project data in reducer",data);
+    return {
+        type: 'POST_PROJECT',
+        project: data
+    };
    
-// }
+}
+
+
 
 
 

@@ -66,10 +66,11 @@ DROP TABLE IF EXISTS projects;
 
 CREATE TABLE projects (
     id SERIAL PRIMARY KEY,
-    name VARCHAR,
+    clientid INT NOT NULL REFERENCES users(id),
+    projectname VARCHAR,
     contact VARCHAR,
     description TEXT, 
-    email TEXT REFERENCES client(email),
+    email TEXT,
     phone INT,
     date DATE, 
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -98,9 +99,10 @@ DROP TABLE IF EXISTS client;
 
 CREATE TABLE client (  
     id SERIAL PRIMARY KEY, 
-    clientid INT NOT NULL REFERENCES users(id),   
+    clientid INT NOT NULL REFERENCES users(id),
+    phone INT,   
     company VARCHAR NOT NULL,  
     department VARCHAR, 
     logo TEXT, 
-    imageurl TEXT,  
+    profileimageurl TEXT,  
     website TEXT);

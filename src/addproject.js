@@ -42,8 +42,8 @@ handleChange({target}) {
 
     submit() { 
         console.log("submit?????");
-        axios.post("/addproject", {
-            name: this.state.name,
+        axios.post("/api/addproject", {
+            projectname: this.state.projectname,
             contact: this.state.contact,
             description: this.state.description,
             email: this.state.email,
@@ -69,7 +69,7 @@ handleChange({target}) {
         return (
             <div className="create-project">
                 {this.state.error && <div className="error"><h1> error adding project</h1></div>}
-                <input name="name" placeholder="project-name" type="text" onChange={e => this.handleChange(e)} />
+                <input name="projectname" placeholder="project-name" type="text" onChange={e => this.handleChange(e)} />
                 <input name="contact" placeholder="project-contact" type="text" onChange={e => this.handleChange(e)} />
                 <input name="description" placeholder="project-description" type="text-box" onChange={e => this.handleChange(e)} />
                 <input name="email" placeholder="email for contact" type="text" onChange={e => this.handleChange(e)} />
