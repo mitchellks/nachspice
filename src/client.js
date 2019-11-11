@@ -16,6 +16,7 @@ export default function Client() {
         () => {
             dispatch(
                 receiveClient()
+                
             );
             console.log("receiveClient in client.js working", client);
         },
@@ -33,9 +34,15 @@ export default function Client() {
         <div className="clientpage">
                     <div>
                         <div className="clientdesc">
-                        <div className="name"> Name: {client.first} {client.last} </div>
+                        <div className="phone">Phone: {client.phone}  </div>
                         <div className="company">Company: {client.company}  </div>
-                        <div className="email" >email: {client.email} </div>
+                        <div className="first">Company: {client.first} {client.last}  </div>
+                        <div className="department">Department: {client.department}  </div>
+                        
+                        <div className="website">website: {client.website}  </div>
+                       
+
+
                         </div>
                     </div>
         

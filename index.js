@@ -18,6 +18,7 @@ const path = require("path");
 // } = require("./config");
 
 const {
+    postRegistration,
     postClientRegistration,
     postGraduateRegistration,
     getPasswordGrad,
@@ -26,7 +27,9 @@ const {
     getGraduateId,
     getClient,
     editClient,
-    getGraduate
+    getGraduate,
+    addGrad,
+    addClient
 
 } = require("./db");
 
@@ -139,20 +142,23 @@ app.post("/clientregister", (req, res) => {
     let {
         first,
         last,
-        company,
         email,
-        password
+        password,
+        // regtype
     } = req.body;
+    let regtype = "client";
+
+    console.log(req.body);
     hash(password)
         .then(result => {
             password = result;
             return password;
         })
         .then(password => {
-            postClientRegistration(first, last, company, email, password)
+            postRegistration(first, last, email, password, regtype)
                 .then(result => {
                     req.session.userId = result.rows[0].id;
-                    console.log("result.rows[0].id", result.rows[0].id);
+                    console.log("result.rows[0]", result.rows[0]);
                     console.log("should match the below")
                     console.log("req.session.userId", req.session.userId);
                     res.json({
@@ -173,17 +179,25 @@ app.post("/gradregister", (req, res) => {
     let {
         first,
         last,
-        cohort,
         email,
-        password
+        password,
+        
     } = req.body;
+    let regtype = "graduate";
+    
+    // if (input.value == input.graduate) {
+    //     regtype.value = "graduate";
+    // var regtpe = document.getElementById('hdNomValue').Value;
+    // if (nom) {
+    //     // logic here 
+    // }
     hash(password)
         .then(result => {
             password = result;
             return password;
         })
         .then(password => {
-            postGraduateRegistration(first, last, cohort, email, password)
+            postRegistration(first, last, email, password, regtype)
                 .then(result => {
                     req.session.userId = result.rows[0].id;
                     console.log("result.rows[0].id", result.rows[0].id);
@@ -246,7 +260,7 @@ app.post("/gradregister", (req, res) => {
             let hashedPass;
             console.log("email:", email, password);
 
-        getPasswordClient(email)
+        getPassword(email)
         .then(({
             rows
         }) => {
@@ -259,7 +273,7 @@ app.post("/gradregister", (req, res) => {
         })
         .then(matches => {
             if (matches) {
-                getClientId(email).then(id => {
+                getId(email).then(id => {
                     req.session.userId = id.rows[0].id;
                     res.json({
                         success: true
@@ -292,15 +306,52 @@ app.get("/api/getClient", (req, res) => {
         });	        
 });
 
-app.post("/editclient", (req, res) => {
+app.post("/api/addclient", (req, res) => {
     const id = req.session.userId;
+    let clientid = id;
     console.log("editclient", req.body);
-    var bio = req.body.bio;
-    editClient(id, first, last, company, department, email)
-        .then(() => {
-            res.json({
-                bio: bio
-            });
+   let {
+    phone, company, department, logo, profileimageurl, website
+   } = req.body;
+   addClient( clientid, phone, company, department, logo, profileimageurl, website)
+        .then(result => {
+            console.log("addClient result.rows[0]", result.rows[0]);
+                    console.log("should match the below", id);
+                    console.log("req.session.userId", req.session.userId);
+                    res.json({
+                        success: true
+                    });
+        })
+        .catch(err => {
+            console.log(err);
+            res.sendStatus(500);
+        });
+});
+
+app.post("/api/addgrad", (req, res) => {
+    let id = req.session.userId;
+    let graduateid = id;
+    let {
+       cohort, 
+       phone,
+    links,
+     bio,
+      available,
+       languages,
+        preferences,
+         strengths,
+          profileimageurl,
+           certificateurl
+    } = req.body;
+
+    addGrad(graduateid, cohort, phone, links, bio, available, languages, preferences, strengths, profileimageurl, certificateurl)
+        .then(result => {
+            console.log("addGrad result.rows[0]", result.rows[0]);
+                    console.log("should match the below", id);
+                    console.log("req.session.userId", req.session.userId);
+                    res.json({
+                        success: true
+                    });
         })
         .catch(err => {
             console.log(err);
@@ -323,6 +374,41 @@ app.get("/api/getGraduate", (req, res) => {
             res.sendStatus(500);
         });	        
 });
+
+
+
+app.post("/api/addproject", (req, res) => {
+    const id = req.session.userId;
+    // console.log("bio", req.body);
+    // var bio = req.body.bio;
+    addProject(id, bio)
+        .then(() => {
+            res.json({
+                bio: bio
+            });
+        })
+        .catch(err => {
+            console.log(err);
+            res.sendStatus(500);
+        });
+});
+
+
+app.get("/api/getProject", (req, res) => {
+    const id = req.session.userId;
+    console.log("id in /getProject req", id );
+    getProject(id)
+    
+        .then(result => {
+            res.json(result.rows[0]);
+            console.log(result.rows[0]);
+        })
+        .catch(err => {
+            console.log(err);
+            res.sendStatus(500);
+        });	        
+});
+
 
 app.get('*', function(req, res) {
     if (!req.session.userId){

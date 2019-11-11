@@ -2,6 +2,8 @@ import React from "react";
 import axios from "./axios";
 import ClientRegister from "./clientregister";
 import GradRegister from "./gradregister";
+import AddGrad from "./addgrad";
+import AddClient from "./addclient";
 
 import Login from "./login";
 import { Link } from 'react-router-dom';
@@ -12,6 +14,10 @@ import Header from "./header";
 
 // import {ClientEdit} from "./clientedit";
 import Graduate from "./graduate";
+import Project from "./project";
+// import AddProject from "./addproject";
+
+import AddProject from "./addproject";
 
 
 export class App extends React.Component {
@@ -45,6 +51,14 @@ export class App extends React.Component {
                         <Header 
                             />
                         
+                        <Route path ="/addgrad" render = {props => 
+                                // <div> TEST </div> }
+                                (
+                                <AddGrad 
+                                key={props.match.url}
+                                    match={props.match}
+                                    history={props.history}/>
+                            )} />
                    
                         <Route exact path="/" render={
                             props =>
@@ -66,9 +80,22 @@ export class App extends React.Component {
                             
                         />
 
-                        <Route path ="/graduate"
+<Route path ="/addclient"
                             render = {props => 
                                 // <div> TEST </div> }
+                                (
+                                <AddClient 
+                                key={props.match.url}
+                                    match={props.match}
+                                    history={props.history}/>
+                            )}
+                            
+                        />
+
+
+                        <Route path ="/graduate"
+                            render = {props => 
+                                
                                 (
                                 <Graduate 
                                 key={props.match.url}
@@ -78,14 +105,33 @@ export class App extends React.Component {
                             
                         />
 
-                        {/* <Route path ="/chat"
-                            render = {props => (
-                                <Chat 
+                        <Route path ="/project"
+                            render = {props => 
+                                
+                                (
+                                <Project 
                                 key={props.match.url}
                                     match={props.match}
-                                    history={props.history}/>
-                            )}
-                        /> */}
+                                    history={props.history}
+                                    />
+   
+                            )} 
+
+                            />
+
+                            <Route path ="/addproject"
+                            render = {props => 
+                                
+                                (
+                                <AddProject 
+                                key={props.match.url}
+                                    match={props.match}
+                                    history={props.history}
+                                    />
+   
+                            )} 
+                            
+                        />  
 
 
 

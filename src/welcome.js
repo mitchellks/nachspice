@@ -8,6 +8,9 @@ import App from "./app";
 import { Link } from 'react-router-dom';
 
 export default function Welcome() {
+
+
+    
     return (
             <div className="landing">
                  <div >
@@ -16,18 +19,32 @@ export default function Welcome() {
                 </div>
             <div className="welcome">
 
-                <button> Submit a project</button>
-                <button> Register as a graduate</button>
-                <button> Login to existing account</button>
-                
-            
-<HashRouter>
-           <Route path="/" component={GradRegister} />
-           {/* <Link to="./gradregister">Click here to Log in!</Link> */}
-            <Route path="/" component={ClientRegister} />
+
+
+           
 
             
-                    <Route path="/login" component={Login} />
+            <HashRouter>    
+            {/* <Link to ="/gradregister">Hi  </Link> */}
+                {/* </button>
+                </button> */}
+
+            
+<Link to ="/gradregister">
+                <button> REGISTER AS A GRADUATE  </button> </Link>
+                    <Route path="/gradregister" component={GradRegister} />
+                   
+           {/* <Link to="./gradregister">Click here to Log in!</Link> */}
+           <Link to ="/clientregister">
+           <button> BOOK A JOB </button>  </Link>  
+
+               <Route path="/clientregister" component={ClientRegister} /> 
+               
+
+               <Link to ="/login">   
+           <button> Login to existing account </button>  </Link>   
+               <Route path="/login" component={Login} /> 
+              
                     {/* <Route path="/home" component={Home} /> */}
             </HashRouter>
            

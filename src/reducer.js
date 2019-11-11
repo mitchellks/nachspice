@@ -30,6 +30,16 @@ export default function Reducer(state = {}, action) {
         };
     }
 
+    if (action.type == "RECEIVE_PROJECT") {
+        console.log("receive Project in reducer", action);
+        state = {
+            ...state,
+            project: action.project
+
+        
+        };
+    }
+
     // if (action.type == "RECEIVE_USERS") {
     //     console.log("actions", action);
     //     state = {

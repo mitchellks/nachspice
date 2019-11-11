@@ -30,9 +30,9 @@ export default class ClientRegister extends React.Component {
         axios.post("/clientregister", {
             first: this.state.first,
             last: this.state.last,
-            company: this.state.company,
             email: this.state.email,
-            password: this.state.password
+            password: this.state.password,
+            regtype: this.state.regtype
         }).then (
             ({data}) => {
                 
@@ -57,9 +57,12 @@ export default class ClientRegister extends React.Component {
                 {this.state.error && <div className="error"><h1>There was a slight registration error!</h1></div>}
                 <input name="first" placeholder="first" type="text" onChange={e => this.handleChange(e)} />
                 <input name="last" placeholder="last" type="text" onChange={e => this.handleChange(e)} />
-                <input name="company" placeholder="company" type="text" onChange={e => this.handleChange(e)} />
+                {/* <input name="company" placeholder="company" type="text" onChange={e => this.handleChange(e)} /> */}
                 <input name="email" placeholder="email" type="text" onChange={e => this.handleChange(e)} />
                 <input name="password" placeholder="password" type="password" onChange={e => this.handleChange(e)} />
+                <input type="hidden" name="type" value="client" defaultValue = {e => this.handleChange(e)}  />
+
+                
                 <button onClick={() => this.submit()}>Join</button>
                 
                 {/* <Link to="/login">Click here to Log in!</Link> */}

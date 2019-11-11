@@ -1,5 +1,5 @@
 main {
-    background-color: lightslategray;
+    background-color:white;
     height: 100%;
     min-height:3400px;
     display: flex;
@@ -49,7 +49,7 @@ main {
 
 
 .clientpage {
-    color: red;
+    color: black;
     font-size: 120px;
 }
 
@@ -71,7 +71,7 @@ main {
 }
 
 .graduatepage {
-    color: blue;
+    color: black;
     font-size: 120px;
 }
 

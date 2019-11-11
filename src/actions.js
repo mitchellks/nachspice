@@ -24,6 +24,18 @@ export async function receiveClient() {
    
 }
 
+export async function receiveProject() {
+    console.log("reducer mounted");
+
+    const { data } = await axios.get("/api/getProject");
+    console.log(" receive project data in reducer",data);
+    return {
+        type: 'RECEIVE_PROJECT',
+        project: data
+    };
+   
+}
+
 // export async function editClient() {
 //     console.log("reducer mounted");
 
