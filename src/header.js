@@ -2,6 +2,7 @@ import React from "react";
 import axios from "./axios";
 import { Link } from 'react-router-dom';
 import { HashRouter, Route } from "react-router-dom";
+// import logout from "./logout";
 
 export default function Header() {
 
@@ -32,6 +33,9 @@ export default function Header() {
             <span> </span>
         <Link to="/portfolios">
         <div className="headerbutton">  SEE GRADUATE PORTFOLIOS </div><span> </span>
+            </Link>
+            <Link to="/logout">
+        <div className="headerbutton">  log out </div><span> </span>
             </Link>
         </div>
         </div>

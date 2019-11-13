@@ -8,7 +8,7 @@ const csurf = require("csurf");
 const server = require('http').Server(app);
 const io = require('socket.io')(server, { origins: 'localhost:8080' });
 
-// const helmet = require('helmet')
+const helmet = require('helmet')
 // const cookieSession = require("cookie-session");
 const multer = require("multer");
 const uidSafe = require("uid-safe");
@@ -80,6 +80,8 @@ const cookieSessionMiddleware = cookieSession({
     secret: `I'm always angry.`,
     maxAge: 1000 * 60 * 60 * 24 * 90
 });
+
+app.use(helmet.frameguard({ action: "sameorigin" }));
 
 app.use(cookieSessionMiddleware);
 io.use(function(socket, next) {

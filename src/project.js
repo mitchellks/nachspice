@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { receiveProject }  from './actions';
+// var moment = require('moment');
 // import { receiveGraduate } from './actions';
 // import { receiveClient } from './actions';
 
@@ -62,7 +63,7 @@ YOUR LATEST PROJECT
                         <div className="project-desc">project: {project.description}  </div>
                         <div className="email" >contact name : {project.contact} </div>
                         <div className="phone" >contact phone : {project.phone} </div>
-                        <div className="due date" >due date : {project.date} </div>
+                        <div className="due date" >due date : {project.date}  </div>
                         <div className="due date" >department : {project.department} </div>
 
                         {/* <div className="company" > : {client.company} </div> */}

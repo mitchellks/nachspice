@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { receiveGraduate }  from './actions';
 import AddPortfolio, { addPortfolio } from './addportfolio';
 import PortfolioComponent from "./portfoliocomponent";
+import AddSkills from "./addskills";
 // import
 // import FriendButton from "./friend-button";
 
@@ -34,7 +35,7 @@ export default function Graduate() {
 
 
     return (
-
+<div>
         <div className="graduatepage">
                     <div>
                         <div className="graduatedesc">
@@ -53,10 +54,15 @@ export default function Graduate() {
                     </div>
         
         <div>
-        <Link to ="/addgrad">
+        <Link to ="/editgrad">
 Edit</Link>
 
+
         </div>
+<div>
+    
+</div>
+
         <div>
             <AddPortfolio />
             
@@ -65,7 +71,7 @@ Edit</Link>
         <PortfolioComponent />
         </div>
         </div>
-
+        </div>
 
 
     );

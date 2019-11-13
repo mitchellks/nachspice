@@ -6,6 +6,8 @@ import AddGrad from "./addgrad";
 import AddClient from "./addclient";
 import AddPortfolio from "./addportfolio";
 import Portfolios from "./portfolios";
+import EditGrad from "./editgrad";
+import AddSkills from "./addskills";
 
 
 // import { Box, Grommet } from "grommet";
@@ -67,7 +69,26 @@ export class App extends React.Component {
                                     match={props.match}
                                     history={props.history}/>
                             )} />
-                   
+
+<Route path ="/addskills" render = {props => 
+                                // <div> TEST </div> }
+                                (
+                                <AddSkills 
+                                key={props.match.url}
+                                    match={props.match}
+                                    history={props.history}/>
+                            )} />
+                            
+                            <Route path ="/editgrad" render = {props => 
+                                // <div> TEST </div> }
+                                (
+                                <EditGrad 
+                                key={props.match.url}
+                                    match={props.match}
+                                    history={props.history}/>
+                            )} />
+
+
                         <Route exact path="/" render={
                             props =>
                                 <div>

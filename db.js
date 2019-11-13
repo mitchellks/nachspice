@@ -71,7 +71,7 @@ VALUES($1, $2);
 module.exports.editGrad = (graduateid, cohort, phone, links, bio, available, languages, frameworks, preferences, strengths, profileimageurl, certificateurl ) => {
     return db.query(
         `INSERT INTO graduate(graduateid, cohort, phone, links, bio, available,languages, frameworks, preferences, strengths, profileimageurl, certificateurl)
-        VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12);
+        VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12) ON CONFLICT (graduateid) DO UPDATE SET cohort = $2, phone = $3, links = $4, bio =$5, available = $6,languages = $7, frameworks = $8, preferences = $9, strengths = $10, profileimageurl = $11, certificateurl = $12;
                 `,
         [graduateid, cohort, phone, links, bio, available, languages, frameworks, preferences, strengths, profileimageurl, certificateurl]
     );
@@ -80,6 +80,7 @@ module.exports.editGrad = (graduateid, cohort, phone, links, bio, available, lan
 
 module.exports.addClient = (clientid, phone, company, department, logo, profileimageurl, website    ) => {
     return db.query(
+        
         `INSERT INTO client(clientid, phone, company, department, logo, profileimageurl, website)
         VALUES($1, $2, $3, $4, $5, $6, $7) RETURNING id;
                 `,
@@ -164,7 +165,9 @@ module.exports.getProjects = () => {
     return db.query(
         `SELECT * 
         FROM projects 
-       ORDER BY date DESC
+        JOIN client
+        on (projects.clientid = client.clientid)
+       ORDER BY date ASC
         `,
         []
     );
@@ -233,7 +236,9 @@ module.exports.getPortfolios = () => {
     return db.query(
         `SELECT * 
         FROM portfolios 
-       ORDER BY id DESC
+        JOIN graduate
+        ON (portfolios.graduateid = graduate.graduateid)
+       ORDER BY portfolios.id DESC
         `,
         []
     );
@@ -249,6 +254,8 @@ module.exports.getPortfolio = (id) => {
         [id]
     );
 };
+
+
 
 
 // CREATE TABLE projects (

@@ -56,49 +56,32 @@ align-content: space-between;
 
 .clientpage {
     color: black;
+    border: solid black 3px;
     /* font-size: 120px; */
 }
 
 .clientdesc {
     display: flex;
     flex-direction: column;
-    .first {
-        display: flex;
-    }
-    .last {
-        display: flex;
-    }
-    .company {
-        display: flex;
-    }
-    .email {
-        display: flex;
-    }
+    
 }
 
 .graduatepage {
-    color: black;
-    /* font-size: 120px; */
+    border: solid black 3px;
+    margin: 10px;
+    padding:10px;
+    width:100%;
+
+
 }
 
 .graduatedesc {
     display: flex;
     flex-direction: column;
-    .first {
-        display: flex;
-        color: yellow;
-    }
-    .last {
-        display: flex;
-        color: green;
-    }
-    .cohort {
-        display: flex;
-        color:blue;
-    }
-    .email {
-        display: flex;
-    }
+    border: solid black 2px;
+    margin: 10px;
+    padding:10px;   
+width: 50%;
 }
 
 .headerbutton {
@@ -111,13 +94,17 @@ align-content: space-between;
 .projectscontainer {
     border: solid black 2px;
     margin: 10px;
+    padding:10px;
     height: 100px;
 }
 
 .create-portfolio {
     display: flex;
     flex-direction: column;
-    max-width:  600px;
+    width:  50%;
+    margin: 10px;
+    padding:10px;
+    border: solid black 2px;
 }
 
 .add-grad {
@@ -135,5 +122,49 @@ align-content: space-between;
 .projectspage {
     display: flex;
     flex-direction: row;
-    max-width:  600px;
-    
+   width:  100%;
+}  
+
+.projectpage {
+
+    border: solid black 3px;
+    margin: 10px;
+    padding:10px;
+
+}
+
+.portfoliocomponent {
+    border: solid black 3px;
+    padding: 10px;
+    display: flex;
+  align-items: flex-start;
+  flex-wrap: nowrap;
+  height: 100%;
+  margin: 10px;
+}
+
+.portfoliopreview {
+    border: solid black 3px;
+    margin: 10px;
+    padding:10px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-auto-rows: auto;
+    grid-gap: 20px;
+    list-style-type:none;
+
+}
+.child {
+    width: 80%;
+    border: solid red 3px;
+    grid-gap: 10px;
+    margin: 10px;
+    padding:10px;
+   
+  }
+
+  .add-grad {
+      border: solid black 3px;
+      margin: 10px;
+    padding:10px;
+  }

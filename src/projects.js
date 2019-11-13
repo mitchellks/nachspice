@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { receiveProjects } from "./actions";
-import { receiveProject } from "./actions";
+
 // import FriendButton from "./friend-button";
 
 export default function Projects() {
@@ -19,11 +19,7 @@ export default function Projects() {
             state && state.projects
     )
     console.log("project", project); 
-    // const project = useSelector(
-    //     state => state && state.project
-       
-    // ); 
-    // console.log("receiveProjects in projects.js working", project);
+  
 
     useEffect(
         () => {
@@ -35,41 +31,35 @@ export default function Projects() {
         []
     );  
 
-
     if (!projects) {
         return null;
     }
 
-    // const handleClick = (id) => {console.log("handleclick", id)};
-
 
     return (
 
-        <div className="projectspage">
+        <div className="portfoliospage">
             <div>
-                Projects DUE date
+                Open Projects
             
                       <ul>
+                      <div className="portfoliopreview"> 
                         {projects.map(data => (
-                        
+                        <div className="child">
                             <li key={data.id}>
-
-<Link to="{`/project/${data.id}`}">
-                            
-                            </Link>
-                            {data.id}
-                               {data.projectname} {data.date}
-                               
-                               <span></span>
-                               
-                                
+                                <Link to="{`/project/${data.id}`}"></Link>
+                            <div>Project ID: {data.id}</div>
+                            <div>  Project Name: {data.projectname} </div>
+                            <div> Company Name: {data.company} </div>
+                            <div>  Project Description: {data.description} </div>
+                            <div>  Due Date: {data.date}</div>
+                            <div>  Created date: {data.date}</div>           
                             </li>
+                            </div>
                         ))}
+                        </div>
                     </ul> 
-                    
-                
-
             </div>
-            </div>
+        </div>
     );
 }

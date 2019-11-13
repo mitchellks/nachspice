@@ -35,39 +35,33 @@ export default function Portfolios() {
 
     return (
 
-        <div className="projectspage">
-            <div>
-                portfolios DUE date
-            {/* {portfolio.Link} */}
-            {/* {project.projectname} */}
-                      
-                      
+        <div className="portfoliospage">
+           
+               
+        
                        <ul>
+                       <div className="portfoliopreview">  
                         {portfolio.map(data => (
-                        
+                        <div className="child">
                             <li key={data.id}>
-
-                            {data.id}
-                               {data.projectname} {data.date}
-                               {/* <Iframe url="{data.livesite}"
-        width="450px"
-        height="450px"
-        id="myId"
-        className="myClassname"
-        display="initial"
-        position="relative"/> */}
-                               
-                               <a href={data.livesite} />
-                               <span></span>
-                               
-                                
+                             
+                           <div > Project Name: {data.projectname} </div> 
+                           <div > Project Description: {data.description} </div> 
+                           <div >Completed Date: {data.date}</div> 
+                           <div> Language: {data.language} </div>
+                           <div> Framework: {data.frameworks} </div>
+                           <div> Comments: {data.comments} </div>
+                           <div> Available to work: {data.available} </div>
+                           
+                          <Link to ={data.livesite}> Link </Link>
+                          <div> Live site : {data.livesite} </div>
+                            
                             </li>
+                            </div>
                         ))}
+                        </div>
                     </ul> 
-                    
-                
-
-            </div>
+                   
             </div>
     );
 }

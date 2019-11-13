@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import axios from "./axios";
 import { useDispatch, useSelector } from 'react-redux';
 import {receivePortfolio} from "./actions";
-import Iframe from 'react-iframe'
+import Iframe from 'react-iframe';
 
 export default function Portfolio() {
     const dispatch = useDispatch();
@@ -33,17 +33,11 @@ export default function Portfolio() {
         return (
             <div className="portfoliocomponent" >
                 <div>
-                <div> {portfolio.description} </div>
+                <div> Description: {portfolio.description} </div>
 
-                <div> {portfolio.livesite} </div>
+                <div> Website: {portfolio.livesite} </div>
                 <div>
-                <Iframe url="http://www.youtube.com/embed/xDMP3i36naA"
-        width="450px"
-        height="450px"
-        id="myId"
-        className="myClassname"
-        display="initial"
-        position="relative"/>
+                
                 
                 </div>
                
