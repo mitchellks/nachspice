@@ -4,6 +4,12 @@ import ClientRegister from "./clientregister";
 import GradRegister from "./gradregister";
 import AddGrad from "./addgrad";
 import AddClient from "./addclient";
+import AddPortfolio from "./addportfolio";
+import Portfolios from "./portfolios";
+
+
+// import { Box, Grommet } from "grommet";
+import { Grommet } from 'grommet';
 
 import Login from "./login";
 import { Link } from 'react-router-dom';
@@ -15,6 +21,7 @@ import Header from "./header";
 // import {ClientEdit} from "./clientedit";
 import Graduate from "./graduate";
 import Project from "./project";
+import Projects from "./projects";
 // import AddProject from "./addproject";
 
 import AddProject from "./addproject";
@@ -43,6 +50,7 @@ export class App extends React.Component {
     render () {
         console.log(this.state);
         return ( 
+            // <Grommet >
             <div>
                 <BrowserRouter>
                     <div>
@@ -117,8 +125,21 @@ export class App extends React.Component {
    
                             )} 
 
-                            />
+/>
+                            <Route path ="/projects"
+                            render = {props => 
+                                
+                                (
+                                <Projects 
+                                key={props.match.url}
+                                    match={props.match}
+                                    history={props.history}
+                                    />
+   
+                            )} 
 
+                            />
+                            
                             <Route path ="/addproject"
                             render = {props => 
                                 
@@ -132,15 +153,52 @@ export class App extends React.Component {
                             )} 
                             
                         />  
+<Route path ="/addportfolio"
+                            render = {props => 
+                                
+                                (
+<AddPortfolio key={props.match.url}
+                                    match={props.match}
+                                    history={props.history}
+                                    />
+                                    )} 
+                            
+                                    /> 
 
+<Route path ="/portfolios"
+                            render = {props => 
+                                
+                                (
+                                <Portfolios 
+                                key={props.match.url}
+                                    match={props.match}
+                                    history={props.history}
+                                    />
+   
+                            )} 
 
+                            />
 
+<Route path ="/graduateportfolio"
+                            render = {props => 
+                                
+                                (
+                                <PortfolioComponent
+                                key={props.match.url}
+                                    match={props.match}
+                                    history={props.history}
+                                    />
+   
+                            )} 
+
+                            />
+{/* PortfolioComponent */}
 
                     </div>
                 </BrowserRouter>
             </div> 
                 
-                
+                // </Grommet>      
         )
     }
 }

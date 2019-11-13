@@ -42,7 +42,7 @@ export default class GradRegister extends React.Component {
                 console.log("cohort register submit data", data);
                 if (data.success) {  
                    
-                    location.replace("/");
+                    location.replace("/addgrad");
                 } else {
                     this.setState({ 
                         error: true

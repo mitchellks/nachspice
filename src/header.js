@@ -11,20 +11,28 @@ export default function Header() {
 <div className="headerlogo"> NACHSPICE </div>
 <div className="headerlinks">
         <Link to="/graduate">
-            Your profile<span> </span> 
+           <div className="headerbutton"> Graduate Profiles</div> <span> </span> 
         </Link><span> </span>
         <span> </span>
         <Link to="/projects">
-            See Projects<span> </span>
+        <div className="headerbutton">  See Projects </div><span> </span>
         </Link>
         <span> </span>
         <Link to="/client">
-            Your profile<span> </span>
+        <div className="headerbutton"> Client profile </div><span> </span>
         </Link> 
         <span>  </span>
         <Link to="/addproject">
-            Add Project 
+        <div className="headerbutton"> Add Project </div>
         </Link>
+        <span> </span>
+        <Link to="/project">
+        <div className="headerbutton">  YOUR PROJECT </div><span> </span>
+            </Link>
+            <span> </span>
+        <Link to="/portfolios">
+        <div className="headerbutton">  SEE GRADUATE PORTFOLIOS </div><span> </span>
+            </Link>
         </div>
         </div>
     );

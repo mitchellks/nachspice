@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import Graduate from "./graduate";
 
 
-export default class AddGrad extends React.Component {
+export default class EditGrad extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -37,7 +37,7 @@ export default class AddGrad extends React.Component {
 
     submit() { 
         console.log("submit?????");
-        axios.post("/api/addgrad", {
+        axios.post("/api/editgrad", {
             
             
             cohort : this.state.cohort,
@@ -72,11 +72,10 @@ export default class AddGrad extends React.Component {
 
     render() {
         return (
-        <div>
-            
+            <div className="add-grad">
 
 <Graduate />
-<div className="add-grad">
+
                 {this.state.error && <div className="error"><h1>There was a slight registration error!</h1></div>}
                 
                 <select name="cohort" id="cohortSelect" onChange={e => this.handleChange(e)} >
@@ -87,11 +86,11 @@ export default class AddGrad extends React.Component {
                 <input name="links" placeholder="Github link" type="text" onChange={e => this.handleChange(e)} />
                 <input name="bio" placeholder="bio" type="text-area" onChange={e => this.handleChange(e)} />
                 {/* <input name="available" placeholder="available" type="boolean" onChange={e => this.handleChange(e)} /> */}
-                <select name="available" placeholder="Are you free to work" onChange={e => this.handleChange(e)} > Are you free to work?
+                <select name="available" label="Are you free to work?" placeholder="Are you free to work" onChange={e => this.handleChange(e)} >
                         <option value='True'>Yes</option>
                         <option value='False'>No</option>
                 </select>
-                <select name="languages" id="languageSelect"  onChange={e => this.handleChange(e)} >
+                <select name="languages" id="languageSelect" onClick={e => this.multipleFunc(e)} >
                         <option value='JavaScript'>JavaScript</option>
                         <option value='HTML/CSS'>HTML/CSS</option>
                         <option value='SQL'>SQL</option>
@@ -118,7 +117,7 @@ export default class AddGrad extends React.Component {
                         <option value='Clojure'>Clojure</option>
                         <option value='WebAssembly'>WebAssembly</option>
 </select>   
-<select name="frameworks" id="frameworkSelect" onChange={e => this.multipleFunc(e)} onChange={e => this.handleChange(e)} >
+<select name="frameworks" id="frameworkSelect" onChange={e => this.multipleFunc(e)} >
                         <option value='React.js'>React.js</option>
                         <option value='Vue.js'>Vue.js</option>
                         <option value='Express'>Express</option>
@@ -138,7 +137,7 @@ export default class AddGrad extends React.Component {
 </select>
                 <input name="strengths" placeholder="strengths" type="text" onChange={e => this.handleChange(e)} />
                 <button  onClick={() => this.submit()}>Update Profile</button>
-                </div>
+                
             </div>
         );
     }

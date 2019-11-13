@@ -1,6 +1,7 @@
 import React from "react";
 import axios from "./axios";
 import { Link } from 'react-router-dom';
+import Client from "./client";
 
 
 export default class AddClient extends React.Component {
@@ -9,6 +10,7 @@ export default class AddClient extends React.Component {
         this.state = {
             error: null
         };
+        console.log("PHONE", this.state.phone);
     }
 
 
@@ -61,12 +63,12 @@ export default class AddClient extends React.Component {
     render() {
         return (
 <div> TELL US A LITTLE ABOUT YOURSELF
-
+<Client />
             <div className="add-grad">
-
+            
 
                 {this.state.error && <div className="error"><h1>There was a slight registration error!</h1></div>}
-                <input name="phone" placeholder="phone" type="number" onChange={e => this.handleChange(e)} />
+                <input name="phone" placeholder= "phone" type="number" onChange={e => this.handleChange(e)} />
                 <input name="company" placeholder="company" type="text" onChange={e => this.handleChange(e)} />
                 <input name="department" placeholder="department" type="text" onChange={e => this.handleChange(e)} /><input name="links" placeholder="links" type="text" onChange={e => this.handleChange(e)} />
                 <input name="website" placeholder="website" type="text" onChange={e => this.handleChange(e)} />

@@ -47,7 +47,8 @@ export default function Client() {
                     </div>
         
         <div>
-Edit
+            <Link to ="/addclient">
+Edit</Link>
 
         </div>
         

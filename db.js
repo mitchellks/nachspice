@@ -47,15 +47,35 @@ module.exports.getId = email => {
 //     );
 // };
 
-module.exports.addGrad = (graduateid, cohort, phone, links, bio, available, languages, preferences, strengths, profileimageurl, certificateurl ) => {
+module.exports.addGrad = (graduateid, cohort, phone, links, bio, available, languages, frameworks, preferences, strengths, profileimageurl, certificateurl ) => {
     return db.query(
-        `INSERT INTO graduate(graduateid, cohort, phone, links, bio, available,languages, preferences, strengths, profileimageurl, certificateurl)
-        VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING id;
+
+`INSERT INTO graduate(graduateid, cohort, phone, links, bio, available,languages, frameworks, preferences, strengths, profileimageurl, certificateurl)
+VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12);
                 `,
-        [graduateid, cohort, phone, links, bio, available, languages, preferences, strengths, profileimageurl, certificateurl]
+        [graduateid, cohort, phone, links, bio, available, languages, frameworks, preferences, strengths, profileimageurl, certificateurl]
     );
 };
 
+module.exports.addCohort = (graduateid, cohort) => {
+    return db.query(
+
+`INSERT INTO cohort (graduateid, cohort)
+VALUES($1, $2);
+                `,
+        [graduateid, cohort]
+    );
+};
+
+
+module.exports.editGrad = (graduateid, cohort, phone, links, bio, available, languages, frameworks, preferences, strengths, profileimageurl, certificateurl ) => {
+    return db.query(
+        `INSERT INTO graduate(graduateid, cohort, phone, links, bio, available,languages, frameworks, preferences, strengths, profileimageurl, certificateurl)
+        VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12);
+                `,
+        [graduateid, cohort, phone, links, bio, available, languages, frameworks, preferences, strengths, profileimageurl, certificateurl]
+    );
+};
 
 
 module.exports.addClient = (clientid, phone, company, department, logo, profileimageurl, website    ) => {
@@ -81,55 +101,82 @@ module.exports.getClient = clientid => {
 
 
 
-module.exports.getGraduate = id => {
+module.exports.getGraduate = graduateid => {
     return db.query(
         `SELECT *
         FROM graduate
+        JOIN users
+        ON (graduateid = users.id)
+        WHERE graduateid = $1`,
+        [graduateid]
+    );
+};
+
+
+// module.exports.getProject = id => {
+//     return db.query(
+//         `SELECT *
+//         FROM projects
+//         WHERE id = $1`,
+//         [id]
+//     );
+// };
+
+
+module.exports.getProject = (id) => {
+    return db.query(
+        `SELECT * 
+        FROM projects
+        
         WHERE id = $1`,
         [id]
     );
 };
 
 
-module.exports.getProject = clientid => {
-    return db.query(
-        `SELECT *
-        FROM projects
-        WHERE clientid = $1`,
-        [clientid]
-    );
-};
+
+// module.exports.getProject = id => {
+//     return db.query(
+//         `SELECT * 
+//         FROM projects 
+//         // JOIN users
+//         // ON (projects.clientid = client.clientid) 
+//         // JOIN graduate
+//         // ON (projects.graduateid = graduate.graduateid)
+        
+//         WHERE projects.id = $1`,
+//         [id]
+//     );
+// };
 
 
-module.exports.getProject = clientid => {
+module.exports.getProjects = () => {
     return db.query(
         `SELECT * 
         FROM projects 
-        JOIN client
-        ON (projects.clientid = client.clientid) 
-        
-        
-        WHERE projects.clientid = $1`,
-        [clientid]
+       ORDER BY date DESC
+        `,
+        []
     );
 };
 
-module.exports.addProject = (clientid, projectname,
+
+module.exports.addProject = (clientid, graduateid,  projectname,
     contact,
     description,
     email,
     phone,
     date) => {
     return db.query(
-        `INSERT INTO projects (clientid, projectname,
+        `INSERT INTO projects (clientid, graduateid, projectname,
             contact,
             description,
             email,
             phone,
             date)
-        VALUES($1, $2, $3, $4 ,$5, $6, $7) RETURNING id;
+        VALUES($1, $2, $3, $4 ,$5, $6, $7, $8) RETURNING id;
                 `,
-        [clientid, projectname,
+        [clientid, graduateid, projectname,
             contact,
             description,
             email,
@@ -137,6 +184,62 @@ module.exports.addProject = (clientid, projectname,
             date]
     );
 };
+
+module.exports.addPortfolio = (graduateid,
+    projectname,
+         description,
+         link,
+         livesite,
+         date,
+         languages,
+        frameworks,
+    comments) => {
+    return db.query(
+        `INSERT INTO portfolios (graduateid,
+            projectname,
+                 description,
+                 link,
+                 livesite,
+                 date,
+                 languages,
+                frameworks,
+            comments)
+        VALUES($1, $2, $3, $4 ,$5, $6, $7, $8, $9) RETURNING id;
+                `,
+        [graduateid,
+            projectname,
+                 description,
+                 link,
+                 livesite,
+                 date,
+                 languages,
+                frameworks,
+            comments]
+    );
+};
+
+
+module.exports.getPortfolios = () => {
+    return db.query(
+        `SELECT * 
+        FROM portfolios 
+       ORDER BY id DESC
+        `,
+        []
+    );
+};
+
+module.exports.getPortfolio = (id) => {
+    return db.query(
+        `SELECT * 
+        FROM portfolios
+        WHERE graduateid = $1 
+       ORDER BY id DESC
+        `,
+        [id]
+    );
+};
+
 
 // CREATE TABLE projects (
 //     id SERIAL PRIMARY KEY,

@@ -67,7 +67,11 @@ handleChange({target}) {
 
     render() {
         return (
+            <div>
+                DO YOU HAVE A PROJECT WHICH NEEDS THE ATTENTION OF EAGER STUDENTS?
             <div className="create-project">
+
+
                 {this.state.error && <div className="error"><h1> error adding project</h1></div>}
                 <input name="projectname" placeholder="project-name" type="text" onChange={e => this.handleChange(e)} />
                 <input name="contact" placeholder="project-contact" type="text" onChange={e => this.handleChange(e)} />
@@ -77,7 +81,7 @@ handleChange({target}) {
                 <input name="date" placeholder="due-date" type="date" onChange={e => this.handleChange(e)} />
                 <button onClick={() => this.submit()}>Add Project</button>
                 
-                
+                </div>
             </div>
         );
     }

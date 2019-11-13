@@ -56,7 +56,7 @@ align-content: space-between;
 
 .clientpage {
     color: black;
-    font-size: 120px;
+    /* font-size: 120px; */
 }
 
 .clientdesc {
@@ -78,7 +78,7 @@ align-content: space-between;
 
 .graduatepage {
     color: black;
-    font-size: 120px;
+    /* font-size: 120px; */
 }
 
 .graduatedesc {
@@ -101,3 +101,39 @@ align-content: space-between;
     }
 }
 
+.headerbutton {
+    display: flex;
+    margin-right: 10px;
+    border: solid black 2px;
+    padding: 5px;
+}
+
+.projectscontainer {
+    border: solid black 2px;
+    margin: 10px;
+    height: 100px;
+}
+
+.create-portfolio {
+    display: flex;
+    flex-direction: column;
+    max-width:  600px;
+}
+
+.add-grad {
+    display: flex;
+    flex-direction: column;
+    max-width:  600px;
+}
+
+.create-project {
+    display: flex;
+    flex-direction: column;
+    max-width:  600px;
+}
+
+.projectspage {
+    display: flex;
+    flex-direction: row;
+    max-width:  600px;
+    

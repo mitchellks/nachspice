@@ -3,6 +3,7 @@ const express = require('express');
 const app = express();
 const compression = require('compression');
 const csurf = require("csurf");
+// import { Box, Grommet } from "grommet";
 
 const server = require('http').Server(app);
 const io = require('socket.io')(server, { origins: 'localhost:8080' });
@@ -19,19 +20,25 @@ const path = require("path");
 
 const {
     postRegistration,
+
     postClientRegistration,
     postGraduateRegistration,
-    getPasswordGrad,
-    getPasswordClient,
-    getClientId,
-    getGraduateId,
+    getPassword,
+    getId,
+    
     getClient,
     editClient,
     getGraduate,
     addGrad,
     addClient,
     addProject,
-    getProject
+    getProject,
+    getProjects,
+    editGrad,
+    addCohort,
+    addPortfolio,
+    getPortfolios,
+    getPortfolio
 
 } = require("./db");
 
@@ -220,40 +227,6 @@ app.post("/gradregister", (req, res) => {
 });
 
 
-// app.post("/login", (req, res) => {
-//     let {
-//         email,
-//         password
-//     } = req.body;
-//     let hashedPass;
-//     console.log("email:", email, password);
-
-//     getPasswordGrad(email)
-//         .then(({
-//             rows
-//         }) => {
-//             console.log(rows);
-//             hashedPass = rows[0].password;
-//             return hashedPass;
-//         })
-//         .then(hashedPass => {
-//             return compare(password, hashedPass);
-//         })
-//         .then(matches => {
-//             if (matches) {
-//                 getGraduateId(email).then(id => {
-//                     req.session.userId = id.rows[0].id;
-//                     res.json({
-//                         success: true
-//                     });
-//                 });
-                
-//             } else {
-//                 return res.sendStatus(500);
-//             }
-//         });
-//     });
-
         app.post("/login", (req, res) => {
             let {
                 email,
@@ -293,20 +266,7 @@ app.post("/gradregister", (req, res) => {
         });
 });
 
-app.get("/api/getClient", (req, res) => {
-    const id = req.session.userId;
-    console.log("id in /getClient req", id );
-    getClient(id)
-    
-        .then(result => {
-            res.json(result.rows[0]);
-            console.log(result.rows[0]);
-        })
-        .catch(err => {
-            console.log(err);
-            res.sendStatus(500);
-        });	        
-});
+
 
 app.post("/api/addclient", (req, res) => {
     const id = req.session.userId;
@@ -340,13 +300,46 @@ app.post("/api/addgrad", (req, res) => {
      bio,
       available,
        languages,
+       frameworks,
         preferences,
          strengths,
           profileimageurl,
            certificateurl
     } = req.body;
 
-    addGrad(graduateid, cohort, phone, links, bio, available, languages, preferences, strengths, profileimageurl, certificateurl)
+    addGrad(graduateid, cohort, phone, links, bio, available, languages, frameworks, preferences, strengths, profileimageurl, certificateurl)
+        .then(result => {
+            // console.log("addGrad result.rows", result.rows);
+                    console.log("should match the below", id);
+                    console.log("req.session.userId", req.session.userId);
+                    res.json({
+                        success: true
+                    });
+        })
+        .catch(err => {
+            console.log(err);
+            res.sendStatus(500);
+        });
+});
+
+app.post("/api/editgrad", (req, res) => {
+    let id = req.session.userId;
+    let graduateid = id;
+    let {
+       cohort, 
+       phone,
+    links,
+     bio,
+      available,
+       languages,
+       frameworks,
+        preferences,
+         strengths,
+          profileimageurl,
+           certificateurl
+    } = req.body;
+
+    editGrad(graduateid, cohort, phone, links, bio, available, languages, frameworks, preferences, strengths, profileimageurl, certificateurl)
         .then(result => {
             console.log("addGrad result.rows[0]", result.rows[0]);
                     console.log("should match the below", id);
@@ -362,8 +355,25 @@ app.post("/api/addgrad", (req, res) => {
 });
 
 
+
+app.get("/api/getClient", (req, res) => {
+    const id = req.session.userId;
+    console.log("id in /getClient req", id );
+    getClient(id)
+    
+        .then(result => {
+            res.json(result.rows[0]);
+            console.log(result.rows[0]);
+        })
+        .catch(err => {
+            console.log(err);
+            res.sendStatus(500);
+        });	        
+});
+
 app.get("/api/getGraduate", (req, res) => {
     const id = req.session.userId;
+    
     console.log("id in /getGraduate req", id );
     getGraduate(id)
     
@@ -380,9 +390,11 @@ app.get("/api/getGraduate", (req, res) => {
 
 
 app.post("/api/addproject", (req, res) => {
-    const id = req.session.userId;
-let clientid = id;
+   let clientid = req.session.userId;
+   let graduateid = req.session.userId;
+
     let {  
+        
         projectname,
             contact,
             description,
@@ -392,7 +404,7 @@ let clientid = id;
     
     // console.log("bio", req.body);
     // var bio = req.body.bio;
-    addProject(clientid, projectname,
+    addProject(clientid, graduateid, projectname,
         contact,
         description,
         email,
@@ -411,27 +423,10 @@ let clientid = id;
 });
 
 
-// app.get("/api/getProject", (req, res) => {
-//     const id = req.session.userId;
-//     let clientid = id;
-//     console.log("id in /getProject req", id );
-//     // console.log("id in /getProject req", id );
-//     getProject(clientid)
-    
-//         .then(result => {
-//             res.json(result.rows[0]);
-//             console.log(result.rows[0]);
-//         })
-//         .catch(err => {
-//             console.log(err);
-//             res.sendStatus(500);
-//         });	        
-// });
-
 app.get("/api/getProject", (req, res) => {
+    
     const id = req.session.userId;
-   
-    console.log("id in /getProject req", id );
+    // console.log("id in /getProject req", id );
     getProject(id)
     
         .then(result => {
@@ -444,6 +439,81 @@ app.get("/api/getProject", (req, res) => {
         });	        
 });
 
+app.get("/api/getProjects", (req, res) => {
+    
+    getProjects()
+    
+        .then(result => {
+            res.json(result.rows);
+            console.log(result.rows);
+        })
+        .catch(err => {
+            console.log(err);
+            res.sendStatus(500);
+        });	        
+});
+
+
+app.post("/api/addportfolio", (req, res) => {
+   
+    let graduateid = req.session.userId;
+ 
+     let { 
+        projectname,
+             description,
+             link,
+             livesite,
+             date,
+             languages,
+            frameworks,
+        comments } = req.body;
+        addPortfolio(graduateid, projectname,
+        description,
+        link,
+        livesite,
+        date,
+        languages,
+       frameworks,
+   comments )
+         .then( result  => {
+             console.log ("result", result);
+             res.json({
+                 success: true
+             });
+         })
+         .catch(err => {
+             console.log(err);
+             res.sendStatus(500);
+         });
+ });
+
+ app.get("/api/getPortfolios", (req, res) => {
+    
+    getPortfolios()
+    
+        .then(result => {
+            res.json(result.rows);
+            console.log(result.rows);
+        })
+        .catch(err => {
+            console.log(err);
+            res.sendStatus(500);
+        });	        
+});
+
+app.get("/api/getPortfolio", (req, res) => {
+    const id = req.session.userId;
+    getPortfolio(id)
+    
+        .then(result => {
+            res.json(result.rows[0]);
+            console.log(result.rows[0]);
+        })
+        .catch(err => {
+            console.log(err);
+            res.sendStatus(500);
+        });	        
+});
 
 app.get('*', function(req, res) {
     if (!req.session.userId){

@@ -40,6 +40,66 @@ export default function Reducer(state = {}, action) {
         };
     }
 
+    if (action.type == "RECEIVE_PROJECTS") {
+        console.log("receive PROJECTS in reducer", action);
+        state = {
+            ...state,
+            projects: {
+                ...state.projects,
+                project: action.project
+        }
+    }
+}
+
+    // function updateProjects(state, action) {
+    //     return {
+    //       ...state,
+    //       first: {
+    //         ...state.first,
+    //         second: {
+    //           ...state.first.second,
+    //           [action.someId]: {
+    //             ...state.first.second[action.someId],
+    //             fourth: action.someValue
+    //           }
+    //         }
+    //       }
+    //     }
+    //   }
+
+    if (action.type == "PORTFOLIO_UPLOADER") {
+        console.log("portfolio uploader in reducer", action);
+        state = {
+            ...state,
+            uploader: action.uploader
+
+        
+        };
+    }
+
+    if (action.type == "RECEIVE_PORTFOLIOS") {
+        console.log("receive PORTFOLIOS in reducer", action);
+        state = {
+            ...state,
+                portfolio: {
+                    ...state.portfolio,
+                portfolio: action.portfolio
+                   
+        }
+        }
+    }
+
+    if (action.type == "RECEIVE_PORTFOLIO") {
+        console.log("receive SINGLE PORTFOLIO in reducer", action);
+        state = {
+            ...state,
+                portfolio: action.portfolio
+                   
+        }
+        }
+    
+
+
     // if (action.type == "RECEIVE_USERS") {
     //     console.log("actions", action);
     //     state = {

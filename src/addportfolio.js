@@ -1,10 +1,9 @@
 import React from "react";
 import axios from "./axios";
 import { Link } from 'react-router-dom';
-import Graduate from "./graduate";
 
 
-export default class AddGrad extends React.Component {
+export default class AddPortfolio extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -12,51 +11,51 @@ export default class AddGrad extends React.Component {
         };
     }
 
-
-
     handleChange({target}) {
-        // target.getElementById("frameworksSelect").multiple = true;
-        // target.getElementById("languageSelect").multiple = true;
+        // let target = e.target;
+        // this[target.name] = taeget.value
         this.setState({
-            [target.name]: target.value,
-            
+            [target.name]: target.value
         });
-         
+
     }
 
-    multipleFunc({target}) {
-        this.setState({
-        [target.name] : target.getElementById("frameworksSelect").multiple = true,
-        [target.name] : target.getElementById("languageSelect").multiple = true
-    });
-     }
 
     componentDidMount() {
         console.log("register mounted");
     }
 
+
+handleChange({target}) {
+        // let target = e.target;
+        // this[target.name] = taeget.value
+        this.setState({
+            [target.name]: target.value
+        });
+
+    }
+
+
+    componentDidMount() {
+        console.log("project add mounted");
+    }
+
     submit() { 
         console.log("submit?????");
-        axios.post("/api/addgrad", {
-            
-            
-            cohort : this.state.cohort,
-            phone : this.state.phone,
-            links:  this.state.links,
-            bio:  this.state.bio,
-            imageurl:  this.state.imageurl,
-            certificate: this.state.certificate,
-            available:  this.state.available,
+        axios.post("/api/addportfolio", {
+            projectname: this.state.projectname,
+            description: this.state.description,
+            link: this.state.link,
+            livesite: this.state.livesite,
+            date: this.state.date,
             languages: this.state.languages,
             frameworks: this.state.frameworks,
-            preferences: this.state.preferences,
-            strengths:  this.state.strengths
-
+            comments: this.state.comments
 
         }).then (
             ({data}) => {
                 
-                console.log("graduate profile update", data);
+                console.log("project submit", data);
                 if (data.success) {  
                    
                     location.replace("/graduate");
@@ -68,30 +67,20 @@ export default class AddGrad extends React.Component {
                 }
             });
     }
-    
 
     render() {
         return (
-        <div>
-            
+            <div className="create-portfolio">
 
-<Graduate />
-<div className="add-grad">
-                {this.state.error && <div className="error"><h1>There was a slight registration error!</h1></div>}
+                ADD A PORTFOLIO PIECE TO YOUR PROFILE
+                {this.state.error && <div className="error"><h1> error adding portfolio</h1></div>}
+                <input name="projectname" placeholder="project-name" type="text" onChange={e => this.handleChange(e)} />
                 
-                <select name="cohort" id="cohortSelect" onChange={e => this.handleChange(e)} >
-                        <option value='Coriander'>Coriander</option>
-                        <option value='Mustard'>Mustard</option>
-                </select> 
-                <input name="phone" placeholder="phone" type="text" onChange={e => this.handleChange(e)} />
-                <input name="links" placeholder="Github link" type="text" onChange={e => this.handleChange(e)} />
-                <input name="bio" placeholder="bio" type="text-area" onChange={e => this.handleChange(e)} />
-                {/* <input name="available" placeholder="available" type="boolean" onChange={e => this.handleChange(e)} /> */}
-                <select name="available" placeholder="Are you free to work" onChange={e => this.handleChange(e)} > Are you free to work?
-                        <option value='True'>Yes</option>
-                        <option value='False'>No</option>
-                </select>
-                <select name="languages" id="languageSelect"  onChange={e => this.handleChange(e)} >
+                <input name="description" placeholder="project-description" type="text-box" onChange={e => this.handleChange(e)} />
+                <input name="link" placeholder="github link" type="text" onChange={e => this.handleChange(e)} />
+                <input name="livesite" placeholder="live site link" type="text" onChange={e => this.handleChange(e)} />
+                <input name="date" placeholder="completion-date" type="date" onChange={e => this.handleChange(e)} />
+                <select name="languages" id="languageSelect" onChange={e => this.handleChange(e)} >
                         <option value='JavaScript'>JavaScript</option>
                         <option value='HTML/CSS'>HTML/CSS</option>
                         <option value='SQL'>SQL</option>
@@ -118,7 +107,7 @@ export default class AddGrad extends React.Component {
                         <option value='Clojure'>Clojure</option>
                         <option value='WebAssembly'>WebAssembly</option>
 </select>   
-<select name="frameworks" id="frameworkSelect" onChange={e => this.multipleFunc(e)} onChange={e => this.handleChange(e)} >
+<select name="frameworks" id="frameworkSelect" onChange={e => this.handleChange(e)} >
                         <option value='React.js'>React.js</option>
                         <option value='Vue.js'>Vue.js</option>
                         <option value='Express'>Express</option>
@@ -130,17 +119,16 @@ export default class AddGrad extends React.Component {
                         <option value='Ruby on Rails'>Ruby on Rails</option>
                         <option value='jQuery'>jQuery</option>
                         
-</select>   
-<select name="preferences" placeholder="Front or Back" onChange={e => this.handleChange(e)} >
-                        <option value='Full-Stack'>Full-Stack</option>
-                        <option value='Front-End'>Front-End</option>
-                        <option value='Back-End'>Back-End</option>
-</select>
-                <input name="strengths" placeholder="strengths" type="text" onChange={e => this.handleChange(e)} />
-                <button  onClick={() => this.submit()}>Update Profile</button>
-                </div>
+</select> 
+<input name="comments" placeholder="comments on project" type="textbox" onChange={e => this.handleChange(e)} />
+                <button onClick={() => this.submit()}>Add to portfolio</button>
+                
+                
             </div>
         );
     }
 }
+
+
+
 
