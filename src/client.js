@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { receiveClient }  from './actions';
+import Project from "./project";
 // import FriendButton from "./friend-button";
 
 export default function Client() {
@@ -52,7 +53,9 @@ Edit</Link>
 
         </div>
         
-        
+        <div>
+            <Project />
+        </div>
         
         </div>
 

@@ -54,6 +54,8 @@ export default function Project() {
     return (
 
         <div className="projectpage">
+YOUR LATEST PROJECT
+            
                     <div>
                         <div className="projectdesc">
                         <div className="name"> Project Name: {project.projectname}  </div>

@@ -123,17 +123,27 @@ module.exports.getGraduate = graduateid => {
 // };
 
 
-module.exports.getProject = (id) => {
+
+
+module.exports.getProject = id => {
     return db.query(
         `SELECT * 
         FROM projects
-        
-        WHERE id = $1`,
+        WHERE projects.id = $1`,
         [id]
     );
 };
 
-
+module.exports.getProject = (id) => {
+    return db.query(
+        `SELECT * 
+        FROM projects
+        WHERE clientid = $1 
+       ORDER BY id DESC
+        `,
+        [id]
+    );
+};
 
 // module.exports.getProject = id => {
 //     return db.query(

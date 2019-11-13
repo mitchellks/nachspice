@@ -422,15 +422,12 @@ app.post("/api/addproject", (req, res) => {
         });
 });
 
-
 app.get("/api/getProject", (req, res) => {
-    
     const id = req.session.userId;
-    // console.log("id in /getProject req", id );
     getProject(id)
-    
         .then(result => {
             res.json(result.rows[0]);
+            // res.json(result.rows[1]);
             console.log(result.rows[0]);
         })
         .catch(err => {
@@ -438,6 +435,22 @@ app.get("/api/getProject", (req, res) => {
             res.sendStatus(500);
         });	        
 });
+
+// app.get("/api/getProject", (req, res) => {
+    
+//     const id = req.session.userId;
+//     // console.log("id in /getProject req", id );
+//     getProject(id)
+    
+//         .then(result => {
+//             res.json(result.rows[0]);
+//             console.log(result.rows[0]);
+//         })
+//         .catch(err => {
+//             console.log(err);
+//             res.sendStatus(500);
+//         });	        
+// });
 
 app.get("/api/getProjects", (req, res) => {
     

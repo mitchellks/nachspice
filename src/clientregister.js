@@ -60,7 +60,7 @@ export default class ClientRegister extends React.Component {
                 {/* <input name="company" placeholder="company" type="text" onChange={e => this.handleChange(e)} /> */}
                 <input name="email" placeholder="email" type="text" onChange={e => this.handleChange(e)} />
                 <input name="password" placeholder="password" type="password" onChange={e => this.handleChange(e)} />
-                <input type="hidden" name="type" value="client" defaultValue = {e => this.handleChange(e)}  />
+                <input type="hidden" name="type" value="client" onChange = {e => this.handleChange(e)}  />
 
                 
                 <button onClick={() => this.submit()}>Join</button>
