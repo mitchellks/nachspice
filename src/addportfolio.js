@@ -58,7 +58,7 @@ handleChange({target}) {
                 console.log("project submit", data);
                 if (data.success) {  
                    
-                    location.replace("/graduate");
+                    location.replace("/profile");
                 } else {
                     this.setState({ 
                         error: true

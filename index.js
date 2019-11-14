@@ -13,10 +13,10 @@ const helmet = require('helmet')
 const multer = require("multer");
 const uidSafe = require("uid-safe");
 const path = require("path");
-// const s3 = require("./s3");
-// const {
-//     s3Url
-// } = require("./config");
+const s3 = require("./s3");
+const {
+    s3Url
+} = require("./config");
 
 const {
     postRegistration,
@@ -25,11 +25,12 @@ const {
     postGraduateRegistration,
     getPassword,
     getId,
-    
+    getProfile,
     getClient,
     editClient,
     getGraduate,
     addGrad,
+    addSkills,
     addClient,
     addProject,
     getProject,
@@ -38,11 +39,20 @@ const {
     addCohort,
     addPortfolio,
     getPortfolios,
-    getPortfolio
+    getPortfolio,
+    addImage,
+    getAvatar,
+    getGraduatePortfolios,
+    getClientProjects,
+    getGraduateSkills
 
 } = require("./db");
 
 // const postMessage = require("./actions");
+
+app.use(express.static("./public"));
+app.use(express.static("./uploads"));
+app.use(express.json());
 
 const {
     hash,
@@ -59,6 +69,8 @@ const diskStorage = multer.diskStorage({
         });
     }
 });
+
+
 
 const uploader = multer({
     storage: diskStorage,
@@ -153,11 +165,12 @@ app.post("/clientregister", (req, res) => {
     let {
         first,
         last,
+        cohort,
         email,
         password,
-        // regtype
     } = req.body;
     let regtype = "client";
+ 
 
     console.log(req.body);
     hash(password)
@@ -166,7 +179,7 @@ app.post("/clientregister", (req, res) => {
             return password;
         })
         .then(password => {
-            postRegistration(first, last, email, password, regtype)
+            postRegistration(first, last, cohort, email, password, regtype)
                 .then(result => {
                     req.session.userId = result.rows[0].id;
                     console.log("result.rows[0]", result.rows[0]);
@@ -190,25 +203,20 @@ app.post("/gradregister", (req, res) => {
     let {
         first,
         last,
+        cohort,
         email,
         password,
         
     } = req.body;
     let regtype = "graduate";
-    
-    // if (input.value == input.graduate) {
-    //     regtype.value = "graduate";
-    // var regtpe = document.getElementById('hdNomValue').Value;
-    // if (nom) {
-    //     // logic here 
-    // }
+   
     hash(password)
         .then(result => {
             password = result;
             return password;
         })
         .then(password => {
-            postRegistration(first, last, email, password, regtype)
+            postRegistration(first, last, cohort, email, password, regtype)
                 .then(result => {
                     req.session.userId = result.rows[0].id;
                     console.log("result.rows[0].id", result.rows[0].id);
@@ -268,7 +276,20 @@ app.post("/gradregister", (req, res) => {
         });
 });
 
-
+app.get("/api/getProfile", (req, res) => {
+    const id = req.session.userId;
+    console.log("id in /getProfile req", id );
+    getProfile(id)
+    
+        .then(result => {
+            res.json(result.rows[0]);
+            console.log(result.rows[0]);
+        })
+        .catch(err => {
+            console.log(err);
+            res.sendStatus(500);
+        });	        
+});
 
 app.post("/api/addclient", (req, res) => {
     const id = req.session.userId;
@@ -296,20 +317,13 @@ app.post("/api/addgrad", (req, res) => {
     let id = req.session.userId;
     let graduateid = id;
     let {
-       cohort, 
        phone,
     links,
      bio,
-      available,
-       languages,
-       frameworks,
-        preferences,
-         strengths,
-          profileimageurl,
-           certificateurl
+      available
     } = req.body;
 
-    addGrad(graduateid, cohort, phone, links, bio, available, languages, frameworks, preferences, strengths, profileimageurl, certificateurl)
+    addGrad(graduateid, phone, links, bio, available)
         .then(result => {
             // console.log("addGrad result.rows", result.rows);
                     console.log("should match the below", id);
@@ -323,6 +337,31 @@ app.post("/api/addgrad", (req, res) => {
             res.sendStatus(500);
         });
 });
+
+app.post("/api/addskills", (req, res) => {
+    let id = req.session.userId;
+    let graduateid = id;
+    let {  languages,
+       frameworks,
+        preferences,
+         strengths,
+          
+    } = req.body;
+    addSkills(graduateid, languages, frameworks, preferences, strengths)
+        .then(result => {
+            // console.log("addGrad result.rows", result.rows);
+                    console.log("should match the below", id);
+                    console.log("req.session.userId", req.session.userId);
+                    res.json({
+                        success: true
+                    });
+        })
+        .catch(err => {
+            console.log(err);
+            res.sendStatus(500);
+        });
+});
+
 
 app.post("/api/editgrad", (req, res) => {
     let id = req.session.userId;
@@ -386,10 +425,30 @@ app.get("/api/getGraduate", (req, res) => {
         .catch(err => {
             console.log(err);
             res.sendStatus(500);
-        });	        
+        }) 
+        
+    
 });
 
 
+
+app.get("/api/getGraduateSkills", (req, res) => {
+    const id = req.session.userId;
+    
+    console.log("id in /getGraduate req", id );
+
+getGraduateSkills(id)
+    
+        .then(result => {
+            res.json(result.rows[0]);
+            console.log(result.rows[0]);
+        })
+        .catch(err => {
+            console.log(err);
+            res.sendStatus(500);
+        });	 
+
+    });
 
 app.post("/api/addproject", (req, res) => {
    let clientid = req.session.userId;
@@ -469,6 +528,35 @@ app.get("/api/getProjects", (req, res) => {
 });
 
 
+app.get("/api/getClientProjects", (req, res) => {
+    const id = req.session.userId;
+    getClientProjects(id)
+    
+        .then(result => {
+            res.json(result.rows);
+            console.log(result.rows);
+        })
+        .catch(err => {
+            console.log(err);
+            res.sendStatus(500);
+        });	        
+});
+
+app.get("/api/project/:id", (req, res) => {
+    getProject(Number(req.params.id))
+        .then(({ rows }) => {
+            if (!rows[0]) {
+                console.log("project/:id does not exist");
+                res.json({ 
+                    doesntexist: true });
+            } 
+            else {
+                res.json(rows[0]);
+            }
+        });
+});
+
+
 app.post("/api/addportfolio", (req, res) => {
    
     let graduateid = req.session.userId;
@@ -516,6 +604,22 @@ app.post("/api/addportfolio", (req, res) => {
         });	        
 });
 
+
+app.get("/api/getGraduatePortfolios", (req, res) => {
+    const id = req.session.userId;
+    getGraduatePortfolios(id)
+    
+        .then(result => {
+            res.json(result.rows);
+            console.log(result.rows);
+        })
+        .catch(err => {
+            console.log(err);
+            res.sendStatus(500);
+        });	        
+});
+
+
 app.get("/api/getPortfolio", (req, res) => {
     const id = req.session.userId;
     getPortfolio(id)
@@ -530,6 +634,42 @@ app.get("/api/getPortfolio", (req, res) => {
         });	        
 });
 
+app.post("/api/uploadavatar", uploader.single("image"), s3.upload, function(req, res) {
+    const imageurl = `${s3Url}${req.file.filename}`;
+    const id = req.session.userId;
+    const userid = id;
+    let logo;
+    console.log("imageurl", imageurl);
+    addImage(userid, imageurl, imageurl, logo)
+    .then(() => {
+        res.json({
+            imageurl: imageurl
+        });
+    })
+        
+        .catch(err => {
+            console.log(err);
+            res.sendStatus(500);
+        });
+});
+
+app.get("/api/getAvatar", (req, res) => {
+    console.log("sessionid in avatar req", req.session.userId);
+    const id = req.session.userId;
+    const userid = id;
+    getAvatar(userid)
+        .then(result => {
+            res.json(result.rows[0]);
+            
+            console.log("getavatar rows" , result.rows[0]);
+        })
+        .catch(err => {
+            console.log(err);
+            res.sendStatus(500);
+        });	        
+});
+
+
 app.get('*', function(req, res) {
     if (!req.session.userId){
         res.redirect("/welcome");
@@ -538,7 +678,7 @@ app.get('*', function(req, res) {
     }
 });
 
-app.get("/logout", (req, res) => {
+app.get("/api/logout", (req, res) => {
     // cookieSessionMiddleware = null;
    req.session = null;
     res.redirect("/");

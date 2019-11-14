@@ -59,7 +59,13 @@ export default class GradRegister extends React.Component {
                 {this.state.error && <div className="error"><h1>There was a slight registration error!</h1></div>}
                 <input name="first" placeholder="first" type="text" onChange={e => this.handleChange(e)} />
                 <input name="last" placeholder="last" type="text" onChange={e => this.handleChange(e)} />
-                {/* <input name="cohort" placeholder="cohort" type="text" onChange={e => this.handleChange(e)} /> */}
+                <select value={this.state.value} name="cohort" id="cohortSelect" onChange={e => this.handleChange(e)} >
+                
+                        <option value='None'>None</option>
+                        <option value='Coriander'>Coriander</option>
+                        <option value='Mustard'>Mustard</option>
+                </select> 
+                
                 <input name="email" placeholder="email" type="text" onChange={e => this.handleChange(e)} />
                 <input name="password" placeholder="password" type="password" onChange={e => this.handleChange(e)} />
                 <input type="hidden" name="type" value="graduate" defaultValue = {e => this.handleChange(e)}  />

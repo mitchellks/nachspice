@@ -1,6 +1,18 @@
 
 export default function Reducer(state = {}, action) {
-   
+    if (action.type == "RECEIVE_PROFILE") {
+        console.log(" receive graduate in reducer", action);
+        state = {
+            ...state,
+            user: {
+                ...state.user, 
+                user: action.user
+            }
+        
+        };
+    }
+
+
     if (action.type == "RECEIVE_GRADUATE") {
         console.log(" receive graduate in reducer", action);
         state = {
@@ -10,6 +22,17 @@ export default function Reducer(state = {}, action) {
         
         };
     }
+
+    if (action.type == "RECEIVE_GRADUATE_SKILLS") {
+        console.log(" receive graduate in reducer", action);
+        state = {
+            ...state,
+            skills: action.skills
+
+        
+        };
+    }
+
     if (action.type == "RECEIVE_CLIENT") {
         console.log("receive client in actions", action);
         state = {
@@ -51,6 +74,17 @@ export default function Reducer(state = {}, action) {
     }
 }
 
+if (action.type == "RECEIVE_CLIENT_PROJECTS") {
+    console.log("receive PROJECTS in reducer", action);
+    state = {
+        ...state,
+        projects: {
+            ...state.projects,
+            project: action.project
+    }
+}
+}
+
     // function updateProjects(state, action) {
     //     return {
     //       ...state,
@@ -89,6 +123,18 @@ export default function Reducer(state = {}, action) {
         }
     }
 
+    if (action.type == "RECEIVE_GRADUATE_PORTFOLIOS") {
+        console.log("receive GRADUATE PORTFOLIOS in reducer", action);
+        state = {
+            ...state,
+                portfolio: {
+                    ...state.portfolio,
+                portfolio: action.portfolio
+                   
+        }
+        }
+    }
+
     if (action.type == "RECEIVE_PORTFOLIO") {
         console.log("receive SINGLE PORTFOLIO in reducer", action);
         state = {
@@ -98,7 +144,15 @@ export default function Reducer(state = {}, action) {
         }
         }
     
-
+        if (action.type == "RECEIVE_AVATAR") {
+            console.log("receive Avatar in reducer", action);
+            state = {
+                ...state,
+                avatar: action.avatar
+    
+            
+            };
+        }
 
     // if (action.type == "RECEIVE_USERS") {
     //     console.log("actions", action);

@@ -8,6 +8,8 @@ import AddPortfolio from "./addportfolio";
 import Portfolios from "./portfolios";
 import EditGrad from "./editgrad";
 import AddSkills from "./addskills";
+import Uploader from "./uploader";
+import Avatar from "./avatar";
 
 
 // import { Box, Grommet } from "grommet";
@@ -25,7 +27,7 @@ import Graduate from "./graduate";
 import Project from "./project";
 import Projects from "./projects";
 // import AddProject from "./addproject";
-
+import Profile from "./profile";
 import AddProject from "./addproject";
 
 
@@ -61,13 +63,27 @@ export class App extends React.Component {
                         <Header 
                             />
                         
+                        <Route path ="/profile" render = {props => 
+                                // <div> TEST </div> }
+                                (
+                                <Profile 
+                                key={props.match.url}
+                                    match={props.match}
+                                    history={props.history}
+                                    />
+
+                            )} />
+
+
                         <Route path ="/addgrad" render = {props => 
                                 // <div> TEST </div> }
                                 (
                                 <AddGrad 
                                 key={props.match.url}
                                     match={props.match}
-                                    history={props.history}/>
+                                    history={props.history}
+                                    />
+                                    
                             )} />
 
 <Route path ="/addskills" render = {props => 
@@ -78,6 +94,35 @@ export class App extends React.Component {
                                     match={props.match}
                                     history={props.history}/>
                             )} />
+
+
+<Route path ="/avataruploader"
+                            render = {props => 
+                                
+                                (
+                                <Uploader
+                                key={props.match.url}
+                                    match={props.match}
+                                    history={props.history}
+                                    />
+   
+                            )} 
+
+                            />
+
+<Route path ="/avatar"
+                            render = {props => 
+                            
+                                (
+                                <Avatar
+                                key={props.match.url}
+                                    match={props.match}
+                                    history={props.history}
+                                    />
+   
+                            )} 
+
+                            />
                             
                             <Route path ="/editgrad" render = {props => 
                                 // <div> TEST </div> }

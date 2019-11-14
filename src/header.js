@@ -6,6 +6,9 @@ import { HashRouter, Route } from "react-router-dom";
 
 export default function Header() {
 
+  
+
+
     return (
         <div className="header">
             
@@ -35,9 +38,11 @@ export default function Header() {
         <div className="headerbutton">  SEE GRADUATE PORTFOLIOS </div><span> </span>
             </Link>
             <Link to="/logout">
-        <div className="headerbutton">  log out </div><span> </span>
+        <div className="headerbutton" onClick={() => axios.get("/api/logout")}>  log out </div><span> </span>
             </Link>
         </div>
         </div>
+
+
     );
 }

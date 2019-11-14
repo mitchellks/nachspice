@@ -10,8 +10,6 @@ export default class AddSkills extends React.Component {
         };
     }
 
-
-
     handleChange({target}) {
 
         this.setState({
@@ -41,7 +39,7 @@ export default class AddSkills extends React.Component {
                 console.log("graduate profile update", data);
                 if (data.success) {  
                    
-                    location.replace("/graduate");
+                    location.replace("/profile");
                 } else {
                     this.setState({ 
                         error: true
@@ -51,14 +49,12 @@ export default class AddSkills extends React.Component {
             });
     }
     
-
     render() {
         return (
         <div>
             
 <div className="addskills">
                 {this.state.error && <div className="error"><h1>There was an error with your skills upload!</h1></div>}
-                
                 
                 <select value={this.state.value} multiple={true} name="languages" id="languageSelect"  onChange={e => this.handleChange(e)} >
                     LANGUAGES
@@ -108,4 +104,5 @@ export default class AddSkills extends React.Component {
         );
     }
 }
+
 

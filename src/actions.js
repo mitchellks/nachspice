@@ -1,5 +1,18 @@
 import axios from './axios';
 
+export async function receiveProfile() {
+    console.log("reducer mounted");
+
+    const { data } = await axios.get("/api/getProfile");
+    console.log("data for profile in actions",data);
+    return {
+        type: 'RECEIVE_PROFILE',
+        user: data
+    };
+   
+}
+
+
 export async function receiveGraduate() {
     console.log("reducer mounted");
 
@@ -8,6 +21,18 @@ export async function receiveGraduate() {
     return {
         type: 'RECEIVE_GRADUATE',
         graduate: data
+    };
+   
+}
+
+export async function receiveGraduateSkills() {
+    console.log("reducer mounted");
+
+    const { data } = await axios.get("/api/getGraduateSkills");
+    console.log("data for graduate in actions",data);
+    return {
+        type: 'RECEIVE_GRADUATE_SKILLS',
+        skills: data
     };
    
 }
@@ -36,6 +61,18 @@ export async function receiveProject() {
    
 }
 
+export async function receiveOtherProject() {
+    console.log("reducer mounted");
+    
+    const { data } = await axios.get(`/api/user/${this.props.match.params.id}`);
+    console.log(" receive other project data in reducer",data);
+    return {
+        type: 'RECEIVE_OTHER_PROJECT',
+        project: data
+    };
+   
+}
+
 export async function receiveProjects() {
     console.log("reducer mounted");
 
@@ -43,6 +80,18 @@ export async function receiveProjects() {
     console.log(" receive project data in actions",data);
     return {
         type: 'RECEIVE_PROJECTS',
+        project: data
+    };
+   
+}
+
+export async function receiveClientProjects() {
+    console.log("reducer mounted");
+
+    const { data } = await axios.get("/api/getClientProjects");
+    console.log(" receive project data in actions",data);
+    return {
+        type: 'RECEIVE_CLIENT_PROJECTS',
         project: data
     };
    
@@ -74,6 +123,18 @@ export async function receivePortfolios() {
    
 }
 
+export async function receiveGraduatePortfolios() {
+    console.log("reducer mounted");
+
+    const { data } = await axios.get("/api/getGraduatePortfolios");
+    console.log(" receive portfolio data in actions",data);
+    return {
+        type: 'RECEIVE_GRADUATE_PORTFOLIOS',
+        portfolio: data
+    };
+   
+}
+
 export async function receivePortfolio() {
     console.log("reducer mounted");
 
@@ -87,34 +148,14 @@ export async function receivePortfolio() {
 }
 
 
-// RECEIVE_PORTFOLIO
+export async function receiveAvatar() {
+    console.log("reducer mounted");
 
-// export async function receiveUsers() {
-//     console.log("reducer mounted");
-
-//     const { data } = await axios.get("/api/getClient");
-//     console.log("receive users data in reducer",data);
-//     return {
-//         type: 'RECEIVE_USERS',
-//         users: data
-//     };
+    const { data } = await axios.get("/api/getAvatar");
+    console.log(" receive avatar data in actions",data);
+    return {
+        type: 'RECEIVE_AVATAR',
+        avatar: data
+    };
    
-// }
-
-// export async function chatMessages(msgs) {
-//     console.log("chatMessages in action.js", msgs);
-//     return {
-//         type: 'RECEIVE_MESSAGES',
-//         messages: msgs
-//     };
-   
-// }
-
-// export async function postMessages(msg) {
-//     console.log("postMessage in action.js",msg);
-//     return {
-//         type: 'ADD_MESSAGES',
-//         messages: msg
-//     };
-   
-// }
+}

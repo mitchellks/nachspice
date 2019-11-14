@@ -2,11 +2,11 @@ import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import Iframe from 'react-iframe'
-import { receivePortfolios } from "./actions";
+import { receiveGraduatePortfolios } from "./actions";
 // import { receiveProject } from "./actions";
 // import FriendButton from "./friend-button";
 
-export default function Portfolios() {
+export default function GraduatePortfolios() {
     const dispatch = useDispatch();
     const portfolio = useSelector(
         state => state.portfolio && state.portfolio.portfolio
@@ -18,9 +18,9 @@ export default function Portfolios() {
     useEffect(
         () => {
             dispatch(
-                receivePortfolios()
+                receiveGraduatePortfolios()
             );
-            console.log("receivePortfolios in portfolio.js working", portfolio);
+            console.log("receiveGraduatePortfolios in portfolio.js working", portfolio);
         },
         []
     );  
@@ -36,14 +36,13 @@ export default function Portfolios() {
     return (
 
         <div className="portfoliospage">
-           
+           <Link to ="/addportfolio">Add Portfolio Piece</Link>
                        <ul>
                        <div className="portfoliopreview">  
                         {portfolio.map(data => (
                         <div className="child">
                             <li key={data.id}>
                             {data.id}
-                            <div> Cohort: {data.cohort}</div>
                            <div > Project Name: {data.projectname} </div> 
                            <div > Project Description: {data.description} </div> 
                            <div >Completed Date: {data.date}</div> 

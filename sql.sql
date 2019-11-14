@@ -37,6 +37,7 @@ CREATE TABLE projects (
     projectname VARCHAR,
     contact VARCHAR,
     description TEXT, 
+    requirements TEXT,
     email TEXT,
     phone INT,
     date DATE, 
@@ -58,18 +59,26 @@ DROP TABLE IF EXISTS graduate CASCADE;
 CREATE TABLE graduate (
     id SERIAL PRIMARY KEY,
     graduateid INT NOT NULL REFERENCES users(id),
-    cohort TEXT,
     phone INT,
     links TEXT,
     bio TEXT,
-    available BOOLEAN default false,
+    available TEXT default yes,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+);
+
+DROP TABLE IF EXISTS graduateskills CASCADE;
+
+CREATE TABLE graduateskills (
+    id SERIAL PRIMARY KEY,
+    graduateid INT,
     languages TEXT,
     frameworks TEXT,
     preferences TEXT,
     strengths TEXT,
-    profileimageurl TEXT,
-    certificateurl TEXT
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 );
+
+
 
 DROP TABLE IF EXISTS client CASCADE;
 
@@ -81,7 +90,8 @@ CREATE TABLE client (
     department VARCHAR, 
     logo TEXT, 
     profileimageurl TEXT,  
-    website TEXT);
+    website TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,);
 
 DROP TABLE IF EXISTS languages;
 
@@ -97,11 +107,7 @@ CREATE TABLE frameworks (
     framework VARCHAR
     );
 
-DROP TABLE IF EXISTS cohort;
- 
-CREATE TABLE cohort (
-    cohort VARCHAR 
-);
+
 
 DROP TABLE IF EXISTS portfolios;
 
@@ -120,14 +126,14 @@ CREATE TABLE portfolios (
 
 );
 
+DROP TABLE IF EXISTS images;
+
+CREATE TABLE images (
+id SERIAL PRIMARY KEY,
+imageurl TEXT,
+logo TEXT,
+graduationcertificate TEXT,
+created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+);
 
 
-graduateid,
-            projectname,
-                 contact,
-                 description,
-                 link,
-                 date,
-                 languages,
-                frameworks,
-            comments
